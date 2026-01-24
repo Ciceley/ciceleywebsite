@@ -1,0 +1,49 @@
+:root{
+  --bg:#f5e6ed;
+  --pink-100:#e8cce0;
+  --accent:#a8416d;
+  --muted:#6b5b63;
+  --text:#2d1f28;
+}
+*{box-sizing:border-box}
+body{font-family:"Poppins",system-ui,-apple-system,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+h1,h2,h3,h4,h5,h6{font-family:"Playfair Display",serif;line-height:1.2;font-weight:600}
+
+.container{max-width:900px;margin:0 auto;padding:2rem 1rem}
+
+.site-header{padding:2rem 0 1.5rem;border-bottom:1px solid rgba(168,65,109,0.08)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;padding:0}
+.site-title{font-family:"Playfair Display",serif;font-size:2rem;font-weight:600;margin:0;display:flex;align-items:center;gap:0.6rem;letter-spacing:-0.5px}
+.title-eye{width:36px;height:36px}
+
+.nav{display:flex;gap:2rem}
+.nav a{text-decoration:none;color:var(--muted);font-size:0.95rem;font-weight:400;padding:0.25rem 0;transition:color 0.2s ease}
+.nav a.active, .nav a:hover{color:var(--accent);font-weight:500}
+
+main{margin:3rem 0}
+
+.bio p{font-size:1.05rem;color:var(--text);margin:1.25rem 0;line-height:1.8;letter-spacing:0.3px}
+
+.featured, .interests{margin:3.5rem 0}
+.featured h2, .interests h2{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:600;margin:2rem 0 1.5rem;letter-spacing:-0.3px;color:var(--text)}
+
+.article-list{list-style:none;padding:0;margin:1.5rem 0}
+.article-list li{margin:1rem 0}
+.article-list a{color:var(--accent);text-decoration:none;font-weight:500;font-size:1.05rem;transition:opacity 0.2s ease;letter-spacing:0.2px}
+.article-list a:hover{opacity:0.7;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+
+.inline-eye{width:20px;height:20px;vertical-align:text-bottom;margin:0 2px}
+
+.site-footer{border-top:1px solid rgba(168,65,109,0.08);padding:2.5rem 0;text-align:center;color:var(--muted);margin-top:4rem}
+.footer-links{margin-bottom:1.25rem}
+.footer-links a{margin:0 1rem;color:var(--accent);text-decoration:none;font-size:0.95rem;font-weight:500;transition:opacity 0.2s ease}
+.footer-links a:hover{opacity:0.7;text-decoration:underline}
+.small{font-size:0.9rem;margin:0;letter-spacing:0.3px}
+
+@media(max-width:600px){
+  .site-header .container{flex-direction:column;gap:1rem;text-align:center}
+  .nav{justify-content:center;gap:1.5rem}
+  .site-title{justify-content:center;font-size:1.6rem}
+  .bio p{font-size:1rem}
+}
