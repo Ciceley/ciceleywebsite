@@ -1,18 +1,45 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Contact — Rose & Quill</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Ciceley</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Ciceley <img src="assets/evil-eye.svg" alt="evil eye" class="title-eye"></h1>
+      <nav class="nav">
+        <a href="index.html">About</a>
+        <a href="articles.html">Insights</a>
+      </nav>
+    </div>
+  </header>
+
   <main class="container">
-    <h1>Contact</h1>
-    <p>Email: <a href="mailto:info@roseandquill.example">info@roseandquill.example</a></p>
-    <p>For editorial queries or submissions, please include a short pitch and bio.</p>
+    <section class="bio">
+      <h1>Contact</h1>
+      <p class="lead">Get in touch</p>
+      <p>Email: <a href="mailto:ciceleyrubio17@gmail.com">ciceleyrubio17@gmail.com</a></p>
+      <p>I'm always open to thoughtful conversations about recruitment, writing, or creative projects. Feel free to reach out if you'd like to connect.</p>
+    </section>
   </main>
-  <footer class="site-footer"><div class="container">© <span id="year"></span> Rose & Quill</div></footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="mailto:ciceleyrubio17@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ciceley-mariz-rubio-b7349827b/">LinkedIn</a>
+        <a href="https://github.com/ciceley">GitHub</a>
+      </div>
+      <p class="small">© <span id="year"></span> Ciceley</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

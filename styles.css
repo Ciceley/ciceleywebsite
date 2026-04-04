@@ -11,6 +11,7 @@ body{font-family:"Poppins",system-ui,-apple-system,sans-serif;margin:0;backgroun
 h1,h2,h3,h4,h5,h6{font-family:"Playfair Display",serif;line-height:1.2;font-weight:600}
 
 .container{max-width:900px;margin:0 auto;padding:2rem 1rem}
+.article-page .container{max-width:1000px}
 
 .site-header{padding:2rem 0 1.5rem;border-bottom:1px solid rgba(168,65,109,0.08)}
 .site-header .container{display:flex;align-items:center;justify-content:space-between;padding:0}
@@ -25,6 +26,14 @@ main{margin:3rem 0}
 
 .bio p{font-size:1.05rem;color:var(--text);margin:1.25rem 0;line-height:1.8;letter-spacing:0.3px}
 
+article.bio{text-align:justify;hyphens:auto;font-family:"Playfair Display",serif;font-size:1.1rem;line-height:1.9}
+article.bio p{text-align:justify;text-justify:inter-word;margin-bottom:1.5rem}
+article.bio .lead{text-align:left;font-family:"Playfair Display",serif;font-weight:600;font-size:1.5rem;line-height:1.4;margin-bottom:2.5rem;margin-top:0.5rem;letter-spacing:0.3px;color:var(--text)}
+
+article.bio .date{font-size:0.9rem;letter-spacing:1px;color:var(--muted);margin-bottom:0.25rem}
+article.bio h1{font-size:2.8rem;line-height:1.1;margin-bottom:0.5rem;letter-spacing:-0.5px}
+article.bio figure.article-image{margin:0.5rem 0 1rem 1.5rem}
+
 .featured, .interests{margin:3.5rem 0}
 .featured h2, .interests h2{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:600;margin:2rem 0 1.5rem;letter-spacing:-0.3px;color:var(--text)}
 
@@ -35,15 +44,31 @@ main{margin:3rem 0}
 
 .inline-eye{width:20px;height:20px;vertical-align:text-bottom;margin:0 2px}
 
+.article-image{max-width:35%;float:right;margin:0.5rem 0 1rem 1.5rem;display:block}
+.article-image img{width:100%;height:auto;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.03);border:1px solid rgba(168,65,109,0.04);transition:transform 0.3s ease,box-shadow 0.3s ease}
+.article-image img:hover{transform:scale(1.001);box-shadow:0 2px 6px rgba(0,0,0,0.04)}
+
+.date{color:var(--muted);font-size:0.95rem;margin-bottom:0.5rem}
+.lead{font-size:1.2rem;font-weight:500;line-height:1.4;margin-bottom:1.5rem}
+.back-link{margin-top:3rem;text-align:center}
+.back-link a{color:var(--accent);text-decoration:none;font-weight:500;transition:opacity 0.2s ease}
+.back-link a:hover{opacity:0.7;text-decoration:underline}
+
 .site-footer{border-top:1px solid rgba(168,65,109,0.08);padding:2.5rem 0;text-align:center;color:var(--muted);margin-top:4rem}
 .footer-links{margin-bottom:1.25rem}
 .footer-links a{margin:0 1rem;color:var(--accent);text-decoration:none;font-size:0.95rem;font-weight:500;transition:opacity 0.2s ease}
 .footer-links a:hover{opacity:0.7;text-decoration:underline}
 .small{font-size:0.9rem;margin:0;letter-spacing:0.3px}
 
+
+
 @media(max-width:600px){
   .site-header .container{flex-direction:column;gap:1rem;text-align:center}
   .nav{justify-content:center;gap:1.5rem}
   .site-title{justify-content:center;font-size:1.6rem}
   .bio p{font-size:1rem}
+  article.bio{font-size:1rem;line-height:1.8}
+  .article-image{max-width:90%;margin:2rem auto;float:none}
+  article.bio h1{font-size:2.2rem}
+
 }
