@@ -13,7 +13,7 @@ enableRobotsTXT = true
 [params]
   mainSections = ["posts"]
   rssFullContent = true
-  favicon = "img/evil-eye.svg"
+  favicon = "/img/evil-eye.svg"
 
   [params.footer]
     since = 2023
@@ -21,7 +21,7 @@ enableRobotsTXT = true
   [params.sidebar]
     emoji = "🧿"
     subtitle = "Technical recruiter. Writer. Notes on people, work, and the words in between."
-    avatar = "img/evil-eye.svg"
+    avatar = "/img/evil-eye.svg"
 
   [params.article]
     headingAnchor = false
