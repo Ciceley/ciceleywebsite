@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1791594108,
+        "narHash": "sha256-XK4KceonkwD8LuMAt/vNrz982mXJM5jeHAxMwsUXXAQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6510408d147d8c5e6d76043e899e9251756f6a75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "stack-theme": "stack-theme"
+      }
+    },
+    "stack-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779698642,
+        "narHash": "sha256-eBDaPKc70ftDjUIStiNPXjutdScBxq4QSl5j5Lxuj1Q=",
+        "owner": "CaiJimmy",
+        "repo": "hugo-theme-stack",
+        "rev": "3e123a30b79b5d52a3a8e88a9dd678fcfd28e418",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CaiJimmy",
+        "ref": "v4.0.3",
+        "repo": "hugo-theme-stack",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
