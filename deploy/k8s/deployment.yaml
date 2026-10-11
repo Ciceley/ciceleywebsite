@@ -15,11 +15,10 @@ spec:
       labels:
         app: ciceley-site
     spec:
-      imagePullSecrets:
-        - name: ghcr-secret
       containers:
         - name: ciceley-site
-          # Tag is bumped automatically by .github/workflows/deploy.yml
+          # Tag is bumped automatically by .github/workflows/deploy.yml.
+          # The GHCR package must be public (or add an imagePullSecrets entry).
           image: ghcr.io/ciceley/ciceleywebsite:latest
           imagePullPolicy: Always
           ports:

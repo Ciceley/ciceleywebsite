@@ -108,62 +108,40 @@ Nothing is published until a PR is merged.
 Only posts that were created by the sync are ever updated or deleted — pages
 you drop in `content/` by hand are left untouched.
 
-## Deployment (self-hosted k3s + Flux)
+## Deployment (self-hosted k3s + ArgoCD)
 
 Merging a PR to `main` runs `.github/workflows/deploy.yml`, which builds the
 site, packages it into an nginx image, pushes it to GHCR, and bumps the image
-tag in `deploy/flux/deployment.yaml`. Flux then reconciles the new tag.
+tag in `deploy/k8s/deployment.yaml`. **ArgoCD** (on the homelab) watches this
+repo and reconciles the change.
 
 ```
-merge to main ──▶ Actions: hugo build ──▶ docker build ──▶ GHCR ──▶ Flux ──▶ k3s
+merge to main ──▶ Actions: hugo build ──▶ docker build ──▶ GHCR ──▶ ArgoCD ──▶ k3s
 ```
+
+### Manifests (`deploy/k8s/`)
+
+Plain Kubernetes (no GitOps-controller-specific CRs), rendered with kustomize:
+
+| File | Purpose |
+| --- | --- |
+| `namespace.yaml` | the `apps` namespace |
+| `deployment.yaml` | nginx serving the built site (image tag bumped by CI) |
+| `service.yaml` | ClusterIP for the deployment |
+| `ingress.yaml` | `ciceley.cc` via `ingressClassName: nginx` |
+| `kustomization.yaml` | ties it together |
 
 ### One-time setup
 
-1. **Pick the image path.** The workflow uses `ghcr.io/${{ github.repository }}`
-   lowercased — for this repo that's `ghcr.io/ciceley/ciceleywebsite`. The Flux
-   manifests in `deploy/flux/` assume the same value; update them if you point
-   at a different registry/repo.
-2. **Let the cluster pull the image.** Create/refresh the `ghcr-secret` pull
-   secret in the `apps` namespace with a PAT that can read the package:
-   ```bash
-   kubectl -n apps create secret docker-registry ghcr-secret \
-     --docker-server=ghcr.io \
-     --docker-username=<gh-user> \
-     --docker-password=<PAT-with-read:packages> \
-     --dry-run=client -o yaml | kubectl apply -f -
-   ```
-3. **Set the real domain** in `deploy/flux/ingress.yaml` (currently
-   `ciceley.example.com`) and, optionally, set the repo variable
-   `SITE_BASEURL` (Settings → Variables) to override `hugo.toml`'s `baseURL` at
-   build time.
-4. **Wire it into Flux.** In your Flux repo (`bakuran-sosyal`), add a
-   `GitRepository` pointing at this repo and a `Kustomization` that applies
-   `./deploy/flux`:
-   ```yaml
-   apiVersion: source.toolkit.fluxcd.io/v1
-   kind: GitRepository
-   metadata:
-     name: ciceleywebsite
-     namespace: flux-system
-   spec:
-     interval: 1m
-     url: https://github.com/Ciceley/ciceleywebsite
-     ref: { branch: main }
-   ---
-   apiVersion: kustomize.toolkit.fluxcd.io/v1
-   kind: Kustomization
-   metadata:
-     name: ciceleywebsite
-     namespace: flux-system
-   spec:
-     interval: 10m
-     sourceRef: { kind: GitRepository, name: ciceleywebsite }
-     path: ./deploy/flux
-     prune: true
-   ```
-   (This repo is public; for a private repo add a `secretRef` with a deploy
-   key.)
+1. **Image path.** CI pushes to `ghcr.io/${{ github.repository }}` lowercased —
+   for this repo `ghcr.io/ciceley/ciceleywebsite` (matches `deployment.yaml`).
+2. **Image access.** Make the GHCR package **public** (repo is public), or add an
+   `imagePullSecrets` entry to `deployment.yaml`.
+3. **Domain.** `deploy/k8s/ingress.yaml` uses `ciceley.cc`; set the repo variable
+   `SITE_BASEURL=https://ciceley.cc` so the built site uses absolute URLs.
+4. **ArgoCD.** The `Application` lives in `bakuran-sosyal/gitops/apps/` and points
+   at this repo's `deploy/k8s` on `main`. Applying the app-of-apps root there
+   registers this site.
 
 ### Building the image locally
 
@@ -184,6 +162,6 @@ nix build .#site                 # → ./result
 - Stack requires the **extended** Hugo build (SCSS + esbuild). The Nix flake and
   the Actions workflow both use it.
 - `hugo.toml` keeps a placeholder `baseURL`; set the repo variable
-  `SITE_BASEURL` or edit it before a manual `hugo` build.
-- The deploy workflow ignores changes under `deploy/flux/**` so its own
+  `SITE_BASEURL` (or edit it) before a release.
+- The deploy workflow ignores changes under `deploy/k8s/**` so its own
   manifest-bump commits don't re-trigger a build.

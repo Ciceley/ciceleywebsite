@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - "deploy/flux/**" # manifest bumps committed below must not re-trigger
+      - "deploy/k8s/**" # manifest bumps committed below must not re-trigger
       - "**.md"
   workflow_dispatch: {}
 
@@ -63,14 +63,14 @@ jobs:
           docker push "$IMAGE:$TAG"
           docker push "$IMAGE:latest"
 
-      # Mirror of the homelab pattern: bump the tag in the Flux manifest and
-      # let Flux reconcile. Skipped on manual runs to avoid surprise commits.
-      - name: Update Flux manifest
+      # Bump the image tag in the manifest so ArgoCD reconciles the new build.
+      # Skipped on manual runs to avoid surprise commits.
+      - name: Update deployment manifest
         if: github.event_name == 'push'
         run: |
           IMAGE="${{ steps.vars.outputs.image }}"
           TAG="${{ steps.vars.outputs.tag }}"
-          FILE="deploy/flux/deployment.yaml"
+          FILE="deploy/k8s/deployment.yaml"
           sed -i -E "s#image: ${IMAGE}:[^ ]*#image: ${IMAGE}:${TAG}#" "$FILE"
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
