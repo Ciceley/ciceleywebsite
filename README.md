@@ -139,7 +139,7 @@ Plain Kubernetes (no GitOps-controller-specific CRs), rendered with kustomize:
    `imagePullSecrets` entry to `deployment.yaml`.
 3. **Domain.** `deploy/k8s/ingress.yaml` uses `ciceley.cc`; set the repo variable
    `SITE_BASEURL=https://ciceley.cc` so the built site uses absolute URLs.
-4. **ArgoCD.** The `Application` lives in `bakuran-sosyal/gitops/apps/` and points
+4. **ArgoCD.** The `Application` lives in `bakuran-gitops/applications/` and points
    at this repo's `deploy/k8s` on `main`. Applying the app-of-apps root there
    registers this site.
 
