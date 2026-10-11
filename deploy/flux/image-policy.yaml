@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: ciceley-site
+  namespace: apps
+spec:
+  imageRepositoryRef:
+    name: ciceley-site
+  filterTags:
+    pattern: '^main-\d{8}-\d{6}-[a-f0-9]{7}$'
+  policy:
+    numerical:
+      order: desc

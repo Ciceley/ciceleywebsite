@@ -1,0 +1,79 @@
+name: Build & Push Site
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "deploy/flux/**" # manifest bumps committed below must not re-trigger
+      - "**.md"
+  workflow_dispatch: {}
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Hugo (extended)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.167.0"
+          extended: true
+
+      - name: Build site
+        env:
+          SITE_BASEURL: ${{ vars.SITE_BASEURL }}
+        run: |
+          if [ -n "$SITE_BASEURL" ]; then
+            hugo --minify --baseURL "$SITE_BASEURL"
+          else
+            hugo --minify
+          fi
+
+      - name: Compute image reference
+        id: vars
+        run: |
+          IMAGE="$(echo "${REGISTRY}/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')"
+          TAG="main-$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA:0:7}"
+          echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        run: |
+          IMAGE="${{ steps.vars.outputs.image }}"
+          TAG="${{ steps.vars.outputs.tag }}"
+          docker build -t "$IMAGE:$TAG" -t "$IMAGE:latest" .
+          docker push "$IMAGE:$TAG"
+          docker push "$IMAGE:latest"
+
+      # Mirror of the homelab pattern: bump the tag in the Flux manifest and
+      # let Flux reconcile. Skipped on manual runs to avoid surprise commits.
+      - name: Update Flux manifest
+        if: github.event_name == 'push'
+        run: |
+          IMAGE="${{ steps.vars.outputs.image }}"
+          TAG="${{ steps.vars.outputs.tag }}"
+          FILE="deploy/flux/deployment.yaml"
+          sed -i -E "s#image: ${IMAGE}:[^ ]*#image: ${IMAGE}:${TAG}#" "$FILE"
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add "$FILE"
+          git diff --cached --quiet || git commit -m "chore: deploy ciceley-site ${TAG}"
+          git push

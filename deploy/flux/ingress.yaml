@@ -1,0 +1,21 @@
+# CHANGE the host to the real domain before applying.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ciceley-site
+  namespace: apps
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-no-cache: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ciceley.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ciceley-site
+                port:
+                  number: 80

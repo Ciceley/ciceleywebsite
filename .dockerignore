@@ -1,0 +1,23 @@
+# Files not needed inside the image build context.
+.git
+.gitignore
+.gitmodules
+.github
+node_modules
+resources
+.env
+.env.*
+!.env.example
+themes
+content
+layouts
+assets/icons
+scripts
+flake.nix
+flake.lock
+package.json
+package-lock.json
+README.md
+Dockerfile
+.dockerignore
+*.log

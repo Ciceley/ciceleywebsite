@@ -1,0 +1,47 @@
+name: Notion → Hugo (open PR)
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # every 6 hours
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync content from Notion
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: npm run sync
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "content: sync posts from Notion"
+          title: "Sync posts from Notion"
+          branch: notion-sync
+          delete-branch: true
+          body: |
+            Automated content sync from Notion.
+
+            Review the new/updated posts under `content/posts/`, then merge to publish.

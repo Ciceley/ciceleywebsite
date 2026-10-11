@@ -1,0 +1,106 @@
+# Rose & Quill — Hugo site config
+# NOTE: change baseURL to your real domain before deploying.
+baseURL = "https://ciceley.example.com/"
+locale = "en-us"
+defaultContentLanguage = "en"
+title = "Ciceley Mariz Rubio"
+theme = "hugo-theme-stack"
+enableRobotsTXT = true
+
+[pagination]
+  pagerSize = 8
+
+[params]
+  mainSections = ["posts"]
+  rssFullContent = true
+  favicon = "img/evil-eye.svg"
+
+  [params.footer]
+    since = 2023
+
+  [params.sidebar]
+    emoji = "🧿"
+    subtitle = "Technical recruiter. Writer. Notes on people, work, and the words in between."
+    avatar = "img/evil-eye.svg"
+
+  [params.article]
+    headingAnchor = false
+    math = false
+    toc = false
+    readingTime = true
+    [params.article.license]
+      enabled = false
+
+  [params.widgets]
+    homepage = [
+      { type = "search" },
+      { type = "archives", params = { limit = 8 } },
+      { type = "tag-cloud", params = { limit = 20 } },
+    ]
+    page = [{ type = "toc" }]
+
+  [params.colorScheme]
+    toggle = true
+    default = "light"
+
+  [params.opengraph.twitter]
+    card = "summary_large_image"
+
+  [params.comments]
+    enabled = false
+
+  [params.cookies]
+    enabled = false
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+
+# -----------------------------
+# Navigation (left sidebar)
+# -----------------------------
+[menu]
+  [[menu.main]]
+    identifier = "writing"
+    name = "Writing"
+    url = "/posts/"
+    weight = 1
+    [menu.main.params]
+      icon = "archives"
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 2
+    [menu.main.params]
+      icon = "user"
+
+# -----------------------------
+# Social links (left sidebar)
+# -----------------------------
+  [[menu.social]]
+    identifier = "email"
+    name = "Email"
+    url = "mailto:ciceleyrubio17@gmail.com"
+    weight = 1
+    [menu.social.params]
+      icon = "mail"
+
+  [[menu.social]]
+    identifier = "linkedin"
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/ciceley-mariz-rubio-b7349827b/"
+    weight = 2
+    [menu.social.params]
+      icon = "brand-linkedin"
+
+  [[menu.social]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/ciceley"
+    weight = 3
+    [menu.social.params]
+      icon = "brand-github"

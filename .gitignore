@@ -1,0 +1,23 @@
+# Hugo
+/public/
+/resources/
+.hugo_build.lock
+assets/jsconfig.json
+
+# Nix build output
+/result
+/result-*
+
+# Node
+node_modules/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
