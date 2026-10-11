@@ -1,6 +1,6 @@
 # Rose & Quill — Hugo site config
 # NOTE: change baseURL to your real domain before deploying.
-baseURL = "https://ciceley.example.com/"
+baseURL = "https://ciceley.cc/"
 locale = "en-us"
 defaultContentLanguage = "en"
 title = "Ciceley Mariz Rubio"
