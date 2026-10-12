@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths-ignore:
       - "deploy/k8s/**" # manifest bumps committed below must not re-trigger
-      - "**.md"
   workflow_dispatch: {}
 
 env:
