@@ -7,19 +7,16 @@ categories: ["Announcement"]
 tags: ["Personal"]
 ---
 
-After living with the same look for a while, I finally gave this space a proper redesign. The goal was simple: make it calmer, easier to read, and a little more like me.
+I've been thinking about this space for a while — what it holds, and how it feels to land here.
 
 
-## What's new
-
-- A cleaner layout, with more room for the writing itself.
-- A softer, warmer palette — plus a dark mode, if that's your thing.
-- Faster pages and a better reading experience on your phone.
-
-## Under the hood
+So I gave it a new look: softer colors, a little more room to breathe, and more quiet. I wanted it to feel less like a page you scroll past and more like a place you can sit for a moment.
 
 
-I also rebuilt how I publish. New posts now start in Notion and flow straight to the site, so there's far less friction between an idea and a published piece — which means more writing, more often.
+If you've been here before, welcome back. If this is your first time, I'm glad you found it.
 
 
-Thank you for reading, and welcome to the new space. More soon.
+I don't always know what I'll write about next — sometimes it's a reflection, sometimes just a thought I didn't want to lose. But I'm looking forward to filling this space more often.
+
+
+Thank you for reading. More soon.
