@@ -19,7 +19,7 @@ spec:
         - name: ciceley-site
           # Tag is bumped automatically by .github/workflows/deploy.yml.
           # The GHCR package must be public (or add an imagePullSecrets entry).
-          image: ghcr.io/ciceley/ciceleywebsite:main-20261012-015556-1c298c1
+          image: ghcr.io/ciceley/ciceleywebsite:main-20261012-015736-70424ca
           imagePullPolicy: Always
           ports:
             - containerPort: 80
