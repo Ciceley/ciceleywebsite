@@ -3,8 +3,10 @@ name: Build & Push Site
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "deploy/k8s/**" # manifest bumps committed below must not re-trigger
+      paths-ignore:
+        - "deploy/k8s/**" # manifest bumps committed below must not re-trigger
+        - "**.md"
+        - "docs/**"
   workflow_dispatch: {}
 
 env:
