@@ -1,5 +1,12 @@
 # Ciceley — personal writing site
 
+## Why "Bakuran"
+
+Bakuran is Tagalog for the yard or enclosure behind a house, from *bakod*, a
+fence. It is the space where things get built, repaired, and occasionally taken
+apart to see how they work. This site is part of that backyard lab: small,
+personal, and safe to break on purpose.
+
 A static site built with [Hugo](https://gohugo.io) using the
 [Stack](https://github.com/CaiJimmy/hugo-theme-stack) theme (recoloured
 girly-pink). Writing is authored in **Notion**, synced to Markdown by a small
