@@ -15,6 +15,16 @@ spec:
       labels:
         app: ciceley-site
     spec:
+      # Two replicas are only HA if they sit on two nodes. Both landed on sitaw-amd,
+      # so losing that node took the whole service down until the scheduler found room.
+      # Soft (ScheduleAnyway), so a single-node cluster can still run the workload.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: ciceley-site
       containers:
         - name: ciceley-site
           # Tag is bumped automatically by .github/workflows/deploy.yml.
