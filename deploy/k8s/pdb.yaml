@@ -1,0 +1,15 @@
+# A drain could evict both replicas at once and take the site down for the duration of a
+# node reboot — the same reason the two ingress controllers and ArgoCD carry one. Replicas
+# are spread by topologySpreadConstraints, so one is always the affordable loss.
+#
+# Found by the audit in homelab-context story 6.3 (`ops/workloads --strict`), 2026-11-04.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ciceley-site
+  namespace: apps
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: ciceley-site
