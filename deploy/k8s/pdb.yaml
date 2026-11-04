@@ -10,7 +10,6 @@ metadata:
   namespace: apps
 spec:
   minAvailable: 1
-  bogusField: true
   selector:
     matchLabels:
       app: ciceley-site
